@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="grid place-items-center h-screen">
+    <main className="grid place-items-center  h-[calc(100vh_-_64px)]">
       <div className="grid gap-3 place-items-center text-center w-80">
         <h1 className="text-2xl font-bold">Next JS auth template</h1>
         <p className="font-thin">

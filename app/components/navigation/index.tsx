@@ -18,14 +18,16 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { User } from "@supabase/supabase-js";
 
 import { ThemeSwitcher } from "~/components/theme-switcher";
-import { useAuth } from "~/hooks/auth";
+import { User } from "@supabase/supabase-js";
 
-export const Navigation = () => {
+interface Props {
+  user?: User;
+}
+
+export const Navigation = ({ user }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isLoggedIn } = useAuth();
 
   const menuItems = [
     "Profile",
@@ -43,10 +45,6 @@ export const Navigation = () => {
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="md:hidden"
-        />
         <NavbarBrand as={NextLink} href="/">
           <span className="text-3xl font-bold leading-none">N</span>
           <p className="ml-2 font-medium text-inherit">auth</p>
@@ -75,7 +73,7 @@ export const Navigation = () => {
           <ThemeSwitcher />
         </NavbarItem>
         <NavbarItem>
-          {isLoggedIn ? (
+          {user ? (
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Avatar
@@ -91,9 +89,11 @@ export const Navigation = () => {
               <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem key="profile" className="h-14 gap-2">
                   <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">zoey@example.com</p>
+                  <p className="font-semibold">{user.email}</p>
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
+                <DropdownItem key="settings" href="/account">
+                  My Settings
+                </DropdownItem>
                 <DropdownItem key="team_settings">Team Settings</DropdownItem>
                 <DropdownItem key="analytics">Analytics</DropdownItem>
                 <DropdownItem key="system">System</DropdownItem>
@@ -112,8 +112,14 @@ export const Navigation = () => {
             </Button>
           )}
         </NavbarItem>
+        <NavbarItem>
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="md:hidden w-10 h-10"
+          />
+        </NavbarItem>
       </NavbarContent>
-      <NavbarMenu>
+      <NavbarMenu className="items-start">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
