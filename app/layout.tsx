@@ -4,6 +4,8 @@ import { Providers } from "./providers";
 import { Navigation } from "./components/navigation";
 
 import "./globals.css";
+import React from "react";
+import { getUser } from "./actions";
 
 export const metadata: Metadata = {
   title: "Next Auth",
@@ -15,10 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { user } = await getUser();
 
   return (
     <html lang="en" suppressHydrationWarning>

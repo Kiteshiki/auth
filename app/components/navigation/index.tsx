@@ -21,6 +21,7 @@ import {
 
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { User } from "@supabase/supabase-js";
+import { signOut } from "~/app/actions";
 
 interface Props {
   user?: User;
@@ -28,6 +29,10 @@ interface Props {
 
 export const Navigation = ({ user }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   const menuItems = [
     "Profile",
@@ -101,7 +106,11 @@ export const Navigation = ({ user }: Props) => {
                 <DropdownItem key="help_and_feedback">
                   Help & Feedback
                 </DropdownItem>
-                <DropdownItem key="logout" color="danger">
+                <DropdownItem
+                  key="logout"
+                  color="danger"
+                  onClick={handleSignOut}
+                >
                   Log Out
                 </DropdownItem>
               </DropdownMenu>

@@ -1,18 +1,20 @@
-import { Button } from "@nextui-org/react";
+import { Button, Code } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="grid place-items-center  h-[calc(100vh_-_64px)]">
-      <div className="grid gap-3 place-items-center text-center w-80">
-        <h1 className="text-2xl font-bold">Next JS auth template</h1>
+      <div className="grid gap-3 place-items-center text-center w-96">
+        <h1 className="text-2xl font-bold">
+          Welcome to <Code size="lg">supabase & NextJS</Code> Auth template
+        </h1>
         <p className="font-thin">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic libero
           aliquid id adipisci.
         </p>
         <div className="mt-5">
-          <Button as={Link} href="/login" color="primary" variant="shadow">
-            Sign In
+          <Button as={Link} href="/" color="primary" variant="shadow">
+            Get started
           </Button>
         </div>
         {/* <Avatar

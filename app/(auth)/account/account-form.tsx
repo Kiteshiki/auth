@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { createClient } from "~/utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
+import { signOut } from "~/app/actions";
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
@@ -120,10 +121,8 @@ export default function AccountForm({ user }: { user: User | null }) {
       </div>
 
       <div>
-        <form action="/auth/signout" method="post">
-          <button className="button block" type="submit">
-            Sign out
-          </button>
+        <form action={signOut}>
+          <button type="submit">Sign out</button>
         </form>
       </div>
     </div>
